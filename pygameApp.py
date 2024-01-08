@@ -2,6 +2,8 @@
 import pygame
 import random
 
+from pygame.sprite import _Group
+
 
 WIDTH, HEIGHT, FPS = (800, 600, 30)  # game window and fps parameters
 
@@ -55,6 +57,29 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH
         elif self.rect.left < 0:
             self.rect.left = 0
+
+
+class Mob(pygame.sprite.Sprite):
+    # enemy object class
+    def __init__(self) -> None:
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((30, 30))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+
+        # spawn image at the top of the screen
+        self.rect.x = random.randrange(0, WIDTH - self.rect.width)
+        self.rect.y = random.randrange(-100, -40)
+        self.speedy = random.randrange(1, 8)
+
+    def update(self):
+        self.rect.y += self.speedy
+
+        # destroy enemy when they get to the bottom of the screen
+        if self.rect.top > HEIGHT + 10:
+            self.rect.x = random.randrange(0, WIDTH - self.rect.width)
+            self.rect.y = random.randrange(-100, -40)
+            self.speedy = random.randrange(1, 8)
 
 
 # Create the window
