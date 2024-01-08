@@ -26,14 +26,19 @@ class Player(pygame.sprite.Sprite):
         self.image.fill(GREEN)
         # create a rect bounding box
         self.rect = self.image.get_rect()
+        # position the image in the centre of the screen at the bottom
         self.rect.center = (
             WIDTH / 2,
             HEIGHT,
-        )  # position the image in the centre of the screen at the bottom
+        )
+        self.rect.bottom = HEIGHT - 10
+
+        # add a speed variable
+        self.speedx = 0
 
     def update(self):
         # updates the player object
-        self.rect.x += 5
+        self.rect.x += self.speedx  # move at the speed to be set by the controls
         if self.rect.left > WIDTH:
             self.rect.right = 0
 
