@@ -2,9 +2,6 @@
 import pygame
 import random
 
-from pygame.sprite import _Group
-
-
 WIDTH, HEIGHT, FPS = (800, 600, 30)  # game window and fps parameters
 
 # colours
@@ -89,6 +86,16 @@ clock = pygame.time.Clock()  # handles speed
 
 # create a sprites group
 all_sprites = pygame.sprite.Group()
+
+# create an enemy sprites group
+mobs = pygame.sprite.Group()
+
+# spawn an enemy
+for i in range(3):
+    m = Mob()
+    all_sprites.add(m)
+    mobs.add(m)
+
 
 # create a player object and add it to the sprites group
 player = Player()
