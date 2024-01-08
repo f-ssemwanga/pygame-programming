@@ -1,39 +1,41 @@
-#pygame template
+# pygame template
 import pygame
 import random
 
-WIDTH, HEIGHT, FPS = (260, 480, 30) # game window and fps parameters
+WIDTH, HEIGHT, FPS = (260, 480, 30)  # game window and fps parameters
 
 # colours
 WHITE = (255, 255, 255)
-BLACK = (0,0,0)
-RED = (255, 0,0)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-#initialise common objects
+# initialise common objects
 pygame.init()
-pygame.mixer.init() # required for sound
+pygame.mixer.init()  # required for sound
 
-#Create the window
+# Create the window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
-clock = pygame.time.Clock() #handles speed
+clock = pygame.time.Clock()  # handles speed
 
+# create a sprites group
+all_sprites = pygame.sprite.Group()
 
-#game loop
+# game loop
 running = True
 while running:
-  clock.tick(FPS)
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
-      
-  #update
-  
-  #draw / render
-  screen.fill(BLACK)
-  pygame.display.flip()
-  
+    clock.tick(FPS)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # update
+    all_sprites.update()
+    # draw / render
+    screen.fill(BLACK)
+    all_sprites.draw(screen)
+    pygame.display.flip()
+
 pygame.quit()
-  
