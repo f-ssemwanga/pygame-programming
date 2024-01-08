@@ -31,6 +31,12 @@ class Player(pygame.sprite.Sprite):
             HEIGHT,
         )  # position the image in the centre of the screen at the bottom
 
+    def update(self):
+        # updates the player object
+        self.rect.x += 5
+        if self.rect.left > WIDTH:
+            self.rect.right = 0
+
 
 # Create the window
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
