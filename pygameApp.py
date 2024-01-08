@@ -38,9 +38,23 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         # updates the player object
-        self.rect.x += self.speedx  # move at the speed to be set by the controls
+        # set player's starting position
         if self.rect.left > WIDTH:
             self.rect.right = 0
+        # update position of the player using key events
+        self.speedx = 0
+        keystate = pygame.key.get_pressed()  # returns a list of keys that are down
+        if keystate[pygame.K_LEFT]:
+            self.speedx = -5
+        if keystate[pygame.K_RIGHT]:
+            self.speedx = 5
+        self.rect.x += self.speedx  # move the box by the speed value
+
+        # add constraints
+        if self.rect.right > WIDTH:
+            self.rect.right = WIDTH
+        elif self.rect.left < 0:
+            self.rect.left = 0
 
 
 # Create the window
