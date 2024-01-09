@@ -56,6 +56,11 @@ class Player(pygame.sprite.Sprite):
         elif self.rect.left < 0:
             self.rect.left = 0
 
+    def shoot(self):
+        bullet = Bullet(self.rect.centerx, self.rect.top)
+        all_sprites.add(bullet)
+        bullets.add(bullet)
+
 
 class Mob(pygame.sprite.Sprite):
     # enemy object class
@@ -96,7 +101,7 @@ class Bullet(pygame.sprite.Sprite):
 
     def update(self):
         # rect moves upwards
-        self.rect += self.speedy
+        self.rect.y += self.speedy
         # kill it if it moves off the top of the screen
         if self.rect.bottom < 0:
             self.kill()
@@ -112,6 +117,9 @@ all_sprites = pygame.sprite.Group()
 
 # create an enemy sprites group
 mobs = pygame.sprite.Group()
+
+# create a bullects sprite group
+bullets = pygame.sprite.Group()
 
 # spawn an enemy
 for i in range(3):
@@ -137,7 +145,8 @@ while running:
 
     # update
     all_sprites.update()
-
+    # check if bullet hits a mob
+    hits = pygame.sprite.groupcollide(mobs, bullets, True, True)
     # check for collision
     hits = pygame.sprite.spritecollide(player, mobs, False)
     if hits:
