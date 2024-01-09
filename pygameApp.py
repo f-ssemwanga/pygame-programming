@@ -10,6 +10,7 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
 
 # initialise common objects
 pygame.init()
@@ -77,6 +78,28 @@ class Mob(pygame.sprite.Sprite):
             self.rect.x = random.randrange(0, WIDTH - self.rect.width)
             self.rect.y = random.randrange(-100, -40)
             self.speedy = random.randrange(1, 8)
+
+
+class Bullet(pygame.sprite.Sprite):
+    # bullet class
+    def __init__(self, x, y):
+        # x,y are re-spawn position based on the bullet
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((10, 20))
+        self.image.fill(YELLOW)
+        self.rect = self.image.get_rect()
+
+        # set re-spawn pos to be in front of the player
+        self.rect.bottom = y
+        self.rect.centerx = x
+        self.speedy = -10
+
+    def update(self):
+        # rect moves upwards
+        self.rect += self.speedy
+        # kill it if it moves off the top of the screen
+        if self.rect.bottom < 0:
+            self.kill()
 
 
 # Create the window
