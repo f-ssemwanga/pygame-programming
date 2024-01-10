@@ -2,6 +2,12 @@
 import pygame
 import random
 
+from os import path
+
+img_dir = path.join(path.dirname(__file__), "img")
+# load all game graphics
+
+
 WIDTH, HEIGHT, FPS = (800, 600, 30)  # game window and fps parameters
 
 # colours
@@ -122,7 +128,7 @@ mobs = pygame.sprite.Group()
 bullets = pygame.sprite.Group()
 
 # spawn an enemy
-for i in range(3):
+for i in range(8):
     m = Mob()
     all_sprites.add(m)
     mobs.add(m)
