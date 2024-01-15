@@ -71,8 +71,10 @@ class Mob(pygame.sprite.Sprite):
     # enemy object class
     def __init__(self) -> None:
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((30, 30))
-        self.image.fill(RED)
+        #self.image = pygame.Surface((30, 30))
+        #self.image.fill(RED)
+        self.image = pygame.transform.scale(mob_img, (25,25))
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
         # spawn image at the top of the screen
@@ -97,7 +99,7 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         #self.image = pygame.Surface((10, 20))
         #self.image.fill(YELLOW)
-        self.image =pygame.transform.scale(bullet_img, (20,30))
+        self.image =pygame.transform.scale(bullet_img, (10,20))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
@@ -125,7 +127,7 @@ background_rect = background.get_rect()
 #load other images to the game
 player_img = pygame.image.load(path.join(img_dir, "spaceShip.png")).convert()
 bullet_img = pygame.image.load(path.join(img_dir, "spaceMissile.png")).convert()
-
+mob_img = pygame.image.load(path.join(img_dir, "spaceMeteor.png")).convert()
 # create a sprites group
 all_sprites = pygame.sprite.Group()
 
