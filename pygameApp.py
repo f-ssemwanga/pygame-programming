@@ -95,8 +95,10 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         # x,y are re-spawn position based on the bullet
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((10, 20))
-        self.image.fill(YELLOW)
+        #self.image = pygame.Surface((10, 20))
+        #self.image.fill(YELLOW)
+        self.image.transform.scale(bullet_img, (50,50))
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
         # set re-spawn pos to be in front of the player
@@ -122,6 +124,7 @@ background_rect = background.get_rect()
 
 #load other images to the game
 player_img = pygame.image.load(path.join(img_dir, "spaceShip.png")).convert()
+bullet_img = pygame.image.load(path.join(img_dir, "spaceMissile.png")).convert()
 
 # create a sprites group
 all_sprites = pygame.sprite.Group()
