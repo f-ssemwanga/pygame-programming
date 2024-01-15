@@ -5,9 +5,6 @@ import random
 from os import path
 
 img_dir = path.join(path.dirname(__file__), "img")
-# load all game graphics
-
-
 WIDTH, HEIGHT, FPS = (800, 600, 30)  # game window and fps parameters
 
 # colours
@@ -117,6 +114,9 @@ class Bullet(pygame.sprite.Sprite):
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()  # handles speed
+# load all game graphics
+background = pygame.image.load(path.join(img_dir, "starfield.png")).convert()
+background_rect = background.get_rect()
 
 # create a sprites group
 all_sprites = pygame.sprite.Group()
@@ -153,12 +153,19 @@ while running:
     all_sprites.update()
     # check if bullet hits a mob
     hits = pygame.sprite.groupcollide(mobs, bullets, True, True)
+    #respawn mobs
+    for hit in hits:
+        m = Mob()
+        mobs.add(m)
+        all_sprites.add(m)
     # check for collision
     hits = pygame.sprite.spritecollide(player, mobs, False)
     if hits:
         running = False
     # draw / render
     screen.fill(BLACK)
+    #draw a background
+    screen.blit(background, background_rect)
     all_sprites.draw(screen)
     pygame.display.flip()
 
