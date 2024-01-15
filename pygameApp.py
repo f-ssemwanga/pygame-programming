@@ -25,8 +25,10 @@ class Player(pygame.sprite.Sprite):
     # player class from a sprite
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((50, 50))
-        self.image.fill(GREEN)
+        #self.image = pygame.Surface((50, 50))
+        #self.image.fill(GREEN)
+        self.image = pygame.transform.scale(player_img, (50,38))
+        self.image.set_colorkey(BLACK) # removes background
         # create a rect bounding box
         self.rect = self.image.get_rect()
         # position the image in the centre of the screen at the bottom
@@ -117,6 +119,9 @@ clock = pygame.time.Clock()  # handles speed
 # load all game graphics
 background = pygame.image.load(path.join(img_dir, "starfield.png")).convert()
 background_rect = background.get_rect()
+
+#load other images to the game
+player_img = pygame.image.load(path.join(img_dir, "spaceShip.png")).convert()
 
 # create a sprites group
 all_sprites = pygame.sprite.Group()
