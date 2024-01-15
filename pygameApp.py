@@ -97,7 +97,7 @@ class Bullet(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         #self.image = pygame.Surface((10, 20))
         #self.image.fill(YELLOW)
-        self.image =pygame.transform.scale(bullet_img, (50,50))
+        self.image =pygame.transform.scale(bullet_img, (20,30))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
