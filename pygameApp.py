@@ -3,6 +3,7 @@ import pygame
 import random
 
 from os import path
+from supportModules import *
 
 img_dir = path.join(path.dirname(__file__), "img")
 WIDTH, HEIGHT, FPS = (800, 600, 30)  # game window and fps parameters
@@ -20,17 +21,6 @@ pygame.init()
 pygame.mixer.init()  # required for sound
 
 # Add fonts for displaying the score
-
-font_name = pygame.font.match_font("arial")
-
-
-def draw_text(surf, text, size, x, y):
-    """Create a font object"""
-    font = pygame.font.Font(font_name, size)
-    text_surface = font.render(text, True, WHITE)
-    text_rect = text_surface.get_rect()
-    text_rect.midtop = (x, y)
-    surf.blit(text_surface, text_rect)
 
 
 # create a player class which is a type of sprite
@@ -197,7 +187,8 @@ while running:
 
     # Draw the score
     score_text = f"Score: {score}"
-    draw_text(screen, score_text, 20, WIDTH / 2, 10)
+    draw_text(screen, score_text, 20, WIDTH / 2, 10, WHITE)
     pygame.display.flip()
 
 pygame.quit()
+print(score)
