@@ -19,6 +19,19 @@ YELLOW = (255, 255, 0)
 pygame.init()
 pygame.mixer.init()  # required for sound
 
+# Add fonts for displaying the score
+
+font_name = pygame.font.match_font("arial")
+
+
+def draw_text(surf, text, size, x, y):
+    """Create a font object"""
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, WHITE)
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surf.blit(text_surface, text_rect)
+
 
 # create a player class which is a type of sprite
 class Player(pygame.sprite.Sprite):
@@ -124,7 +137,7 @@ clock = pygame.time.Clock()  # handles speed
 background = pygame.image.load(path.join(img_dir, "starfield.png")).convert()
 background_rect = background.get_rect()
 
-#load other images to the game
+# load other images to the game
 player_img = pygame.image.load(path.join(img_dir, "spaceShip.png")).convert()
 bullet_img = pygame.image.load(path.join(img_dir, "spaceMissile.png")).convert()
 mob_img = pygame.image.load(path.join(img_dir, "spaceMeteor.png")).convert()
@@ -147,6 +160,9 @@ for i in range(8):
 # create a player object and add it to the sprites group
 player = Player()
 all_sprites.add(player)
+
+# initialise the score
+score = 0
 # game loop
 running = True
 while running:
@@ -163,8 +179,9 @@ while running:
     all_sprites.update()
     # check if bullet hits a mob
     hits = pygame.sprite.groupcollide(mobs, bullets, True, True)
-    #respawn mobs
+    # respawn mobs
     for hit in hits:
+        score += 1  # 1 point for every hit the player makes
         m = Mob()
         mobs.add(m)
         all_sprites.add(m)
@@ -174,9 +191,13 @@ while running:
         running = False
     # draw / render
     screen.fill(BLACK)
-    #draw a background
+    # draw a background
     screen.blit(background, background_rect)
     all_sprites.draw(screen)
+
+    # Draw the score
+    score_text = f"Score: {score}"
+    draw_text(screen, score_text, 20, WIDTH / 2, 10)
     pygame.display.flip()
 
 pygame.quit()
