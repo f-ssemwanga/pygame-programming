@@ -2,8 +2,6 @@ import pygame
 import sqlite3 as sq
 
 font_name = pygame.font.match_font("arial")
-
-
 def draw_text(surf, text, size, x, y, clr):
     """Create a font object"""
     try:
@@ -26,12 +24,12 @@ def dbConnector():
         print(f"Database connection error: {e}")
 
 
-def writeToDatabase():
+def writeNewToDatabase(playerName, score):
     """Writes to the database"""
     conn, cur = dbConnector()  # connect to the database
-
-    query = """INSERT INTO tblScores VALUES(2, "Gio", 2,0,0)"""
-    cur.execute(query)
+    id = generatePriKey()
+    query = """INSERT INTO tblScores VALUES(?,?,?,?,?)"""
+    cur.execute(query, (id, playerName, 0, 0, score))
     conn.commit()
     conn.close()
     print("Success")
@@ -47,14 +45,38 @@ def readDatabaseRecords():
     conn.close()
 
 
-def writeToSpecific():
+def writeNewRecord(playerName, score):
     """Writes a value to a specific record"""
+    conn, cur = dbConnector()
+    query = """SELECT count(*)FROM tblScores WHERE userName =?"""
+    cur.execute(query, (playerName,))
+    results = cur.fetchall()
+    print(results)
+    if results[0][0] == 1:
+        print("call append method")
+    else:
+        writeNewToDatabase(playerName, score)
     # query record to be written to
     # prepare data to be written
     # open connection, write data, close connection
 
 
+def generatePriKey():
+    """reads records and generates a unique key"""
+    conn, cur = dbConnector()
+    query = """SELECT ID FROM tblScores """
+    cur.execute(
+        query,
+    )
+    results = cur.fetchall()
+    print(results)
+    newKey = results[-1][0] + 1
+    return newKey
+
+
 # test dbConnection works
-print(dbConnector())
+# print(dbConnector())
 # writeToDatabase()
-readDatabaseRecords()
+# readDatabaseRecords()
+# writeNewRecord("Gio",3)
+print(generatePriKey())
