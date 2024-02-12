@@ -28,10 +28,10 @@ class Player(pygame.sprite.Sprite):
     # player class from a sprite
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        #self.image = pygame.Surface((50, 50))
-        #self.image.fill(GREEN)
-        self.image = pygame.transform.scale(player_img, (50,38))
-        self.image.set_colorkey(BLACK) # removes background
+        # self.image = pygame.Surface((50, 50))
+        # self.image.fill(GREEN)
+        self.image = pygame.transform.scale(player_img, (50, 38))
+        self.image.set_colorkey(BLACK)  # removes background
         # create a rect bounding box
         self.rect = self.image.get_rect()
         # position the image in the centre of the screen at the bottom
@@ -74,9 +74,9 @@ class Mob(pygame.sprite.Sprite):
     # enemy object class
     def __init__(self) -> None:
         pygame.sprite.Sprite.__init__(self)
-        #self.image = pygame.Surface((30, 30))
-        #self.image.fill(RED)
-        self.image = pygame.transform.scale(mob_img, (25,25))
+        # self.image = pygame.Surface((30, 30))
+        # self.image.fill(RED)
+        self.image = pygame.transform.scale(mob_img, (25, 25))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
@@ -100,9 +100,9 @@ class Bullet(pygame.sprite.Sprite):
     def __init__(self, x, y):
         # x,y are re-spawn position based on the bullet
         pygame.sprite.Sprite.__init__(self)
-        #self.image = pygame.Surface((10, 20))
-        #self.image.fill(YELLOW)
-        self.image =pygame.transform.scale(bullet_img, (10,20))
+        # self.image = pygame.Surface((10, 20))
+        # self.image.fill(YELLOW)
+        self.image = pygame.transform.scale(bullet_img, (10, 20))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
@@ -191,6 +191,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-name = input("Enter your name:")
-# id = int(input('ID:'))
-writeNewRecord(name, score)
+print(score)

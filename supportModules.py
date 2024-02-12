@@ -2,6 +2,8 @@ import pygame
 import sqlite3 as sq
 
 font_name = pygame.font.match_font("arial")
+
+
 def draw_text(surf, text, size, x, y, clr):
     """Create a font object"""
     try:
@@ -24,12 +26,12 @@ def dbConnector():
         print(f"Database connection error: {e}")
 
 
-def writeNewToDatabase(playerName, score):
+def writeToDatabase():
     """Writes to the database"""
     conn, cur = dbConnector()  # connect to the database
-    id = generatePriKey()
-    query = """INSERT INTO tblScores VALUES(?,?,?,?,?)"""
-    cur.execute(query, (id, playerName, 0, 0, score))
+
+    query = """INSERT INTO tblScores VALUES(2, "Gio", 2,0,0)"""
+    cur.execute(query)
     conn.commit()
     conn.close()
     print("Success")
@@ -45,17 +47,8 @@ def readDatabaseRecords():
     conn.close()
 
 
-def writeNewRecord(playerName, score):
+def writeToSpecific():
     """Writes a value to a specific record"""
-    conn, cur = dbConnector()
-    query = """SELECT count(*)FROM tblScores WHERE userName =?"""
-    cur.execute(query, (playerName,))
-    results = cur.fetchall()
-    print(results)
-    if results[0][0] == 1:
-        appendExisting(playerName, score)
-    else:
-        writeNewToDatabase(playerName, score)
     # query record to be written to
     # prepare data to be written
     # open connection, write data, close connection
@@ -93,10 +86,6 @@ def appendExisting(playerName, score):
 
 
 # test dbConnection works
-# print(dbConnector())
+print(dbConnector())
 # writeToDatabase()
-# readDatabaseRecords()
-# writeNewRecord("Gio",3)
-# print(generatePriKey())
-# appendExisting("Thomas")
-appendExisting("Gio", 9)
+readDatabaseRecords()
