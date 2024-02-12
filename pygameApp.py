@@ -191,6 +191,6 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
-name= input('Enter your name:')
-id = int(input('ID:'))
-writeNewRecord(id,name,score)
+name = input("Enter your name:")
+# id = int(input('ID:'))
+writeNewRecord(name, score)

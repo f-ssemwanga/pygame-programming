@@ -53,7 +53,7 @@ def writeNewRecord(playerName, score):
     results = cur.fetchall()
     print(results)
     if results[0][0] == 1:
-        print("call append method")
+        appendExisting(playerName, score)
     else:
         writeNewToDatabase(playerName, score)
     # query record to be written to
@@ -71,7 +71,25 @@ def generatePriKey():
     results = cur.fetchall()
     print(results)
     newKey = results[-1][0] + 1
+    conn.close()
     return newKey
+
+
+def appendExisting(playerName, score):
+    """appends and existing record with a new score, swaps out oldest score"""
+    conn, cur = dbConnector()
+    query = """SELECT score1, score3, score3 FROM tblScores WHERE userName=?"""
+    cur.execute(query, (playerName,))
+    results = cur.fetchall()
+    print(results)
+
+    updateQuery = (
+        """UPDATE tblScores SET score1=?, score2=?, score3 =? WHERE userName =?"""
+    )
+    s1, s2, s3 = results[0][1], results[0][2], score
+    cur.execute(updateQuery, (s1, s2, s3, playerName))
+    conn.commit()
+    conn.close()
 
 
 # test dbConnection works
@@ -79,4 +97,6 @@ def generatePriKey():
 # writeToDatabase()
 # readDatabaseRecords()
 # writeNewRecord("Gio",3)
-print(generatePriKey())
+# print(generatePriKey())
+# appendExisting("Thomas")
+appendExisting("Gio", 9)
